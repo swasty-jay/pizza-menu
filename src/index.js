@@ -75,12 +75,20 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+
       {numpizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <React.Fragment>
+          <p>
+            {" "}
+            authentic italian cuisine . 6 creative dishes to cheese from. All
+            from our store,All organic, All delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </React.Fragment>
       ) : (
         <p>We're still working on our menu</p>
       )}
@@ -89,13 +97,14 @@ function Menu() {
 }
 
 function Pizza({ pizzaObj }) {
+  // if (pizzaObj.soldOut) return null;
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
       <div>
         <h1>{pizzaObj.name}</h1>
         <p>{pizzaObj.ingredients}</p>
-        <span>${pizzaObj.price + 3}</span>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : "$ " + pizzaObj.price + 3}</span>
       </div>
     </li>
   );
@@ -117,7 +126,7 @@ function Footer() {
         </div>
       ) : (
         <p>
-          we welcome you back at {openHour}:00 and {closeHour}:00
+          we're happy to welcome you between {openHour}:00 and {closeHour}:00
         </p>
       )}
     </footer>
